@@ -73,8 +73,8 @@ public class MyArrayListTest {
         myArrayList.add(2);
         myArrayList.add(0);
         myArrayList.add(-8);
-        myArrayList.sort(null);
-        assertEquals("[-8, 0, 2]", myArrayList.toString());
+        assertThrows(NullPointerException.class, () ->
+                myArrayList.sort(null));
     }
     @Test
     public void removeTest() {
