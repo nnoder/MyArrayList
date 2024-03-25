@@ -6,7 +6,7 @@ import java.util.Comparator;
  * MyArrayList is realization of ArrayList class with the most used methods.
  * @param <E> the type of elements in this list.
  */
-public class MyArrayList<E extends Comparable<? super E>> {
+public class MyArrayList<E> {
     private final int DEFAULT_CAPACITY = 10;
     private final double DEFAULT_MULTIPLIER = 1.5;
     private static Object[] objects;
@@ -140,13 +140,12 @@ public class MyArrayList<E extends Comparable<? super E>> {
 
     /**
      * Sorts list according to specified comparator.
-     * If specified comparator is null, sorts according to natural ordering.
      * @param comparator comparator used to compare list elements.
+     * @throws NullPointerException if specified comparator is null
      */
-    public void sort(Comparator<? super E> comparator) {
-        if (comparator == null) {
-            comparator = Comparator.naturalOrder();
-        }
+    public void sort(Comparator<? super E> comparator) throws NullPointerException {
+        if (comparator == null)
+            throw new NullPointerException();
         boolean isSorted = false;
         while (!isSorted) {
             isSorted = true;
@@ -161,13 +160,12 @@ public class MyArrayList<E extends Comparable<? super E>> {
 
     /**
      * Sorts list using quicksort according to specified comparator.
-     * If specified comparator is null, sorts according to natural ordering.
      * @param comparator comparator used to compare list elements.
+     * @throws NullPointerException if specified comparator is null
      */
-    public void quicksort(Comparator<? super E> comparator) {
-        if (comparator == null) {
-            comparator = Comparator.naturalOrder();
-        }
+    public void quicksort(Comparator<? super E> comparator) throws NullPointerException {
+        if (comparator == null)
+            throw new NullPointerException();
         quicksort(comparator, 0, pointer-1);
     }
 
