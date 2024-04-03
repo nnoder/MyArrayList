@@ -54,7 +54,7 @@ public class MyArrayList<E> {
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
     public void add(int index, E e) throws IndexOutOfBoundsException {
-        checkIndex(index);
+        checkIndex(index, true);
         for (int i=index; i<pointer; i++) {
             e = set(i, e);
         }
@@ -76,7 +76,7 @@ public class MyArrayList<E> {
      * @throws IndexOutOfBoundsException if index is out of range
      */
     public E get(int index) throws IndexOutOfBoundsException {
-        checkIndex(index);
+        checkIndex(index, false);
         return (E) objects[index];
     }
 
@@ -87,7 +87,7 @@ public class MyArrayList<E> {
      * @throws IndexOutOfBoundsException if index is out of range.
      */
     public E remove (int index) throws IndexOutOfBoundsException {
-        checkIndex(index);
+        checkIndex(index, false);
         E res = get(index);
         for (int i = index; i<pointer-1; i++) {
             set(i, get(i+1));
@@ -132,7 +132,7 @@ public class MyArrayList<E> {
      * @throws IndexOutOfBoundsException if index is out of range.
      */
     public E set(int index, E e) throws IndexOutOfBoundsException {
-        checkIndex(index);
+        checkIndex(index, false);
         E old = get(index);
         objects[index] = e;
         return old;
@@ -208,8 +208,9 @@ public class MyArrayList<E> {
     private void swap(int a, int b) {
         set(b, set(a, get(b)));
     }
-    private void checkIndex(int index) {
-        if (index<0 || index>=pointer) throw new IndexOutOfBoundsException();
+    private void checkIndex(int index, boolean pointerEquals) {
+        if (index<0 || index>pointer) throw new IndexOutOfBoundsException();
+        if (!pointerEquals && index==pointer) throw new IndexOutOfBoundsException();
     }
     private void resize(int newSize) {
         Object[] newObjects = new Object[newSize];
